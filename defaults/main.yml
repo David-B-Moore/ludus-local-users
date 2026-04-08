@@ -1,1 +1,4 @@
 ---
+
+ludus_local_users: 
+  gen_ssh_key: false

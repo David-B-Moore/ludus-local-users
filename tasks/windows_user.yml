@@ -1,0 +1,13 @@
+---
+
+- name: Create Windows users
+  ansible.windows.win_user:
+    name: "{{ user.login }}"
+    state: present
+    password: "{{ user.password }}"
+
+- name: "Add Windows users to local groups"
+  ansible.windows.win_group_membership:
+    name: "{{ group.name }}"
+    members: "{{ group.members }}"
+    state: present
