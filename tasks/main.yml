@@ -2,14 +2,14 @@
 
 - name: set up Linux users
   ansible.builtin.include_tasks: linux_user.yml
-  loop: "{{ users }}"
+  loop: "{{ ludus_local_users }}"
   loop_control: 
     loop_var: user
   when: "ansible_system == 'Linux'"
 
 - name: set up Windows users
   ansible.builtin.include_tasks: windows_user.yml
-  loop: "{{ users }}"
+  loop: "{{ ludus_local_users }}"
   loop_control: 
     loop_var: user
   when: "ansible_system == 'Win32NT'"

@@ -1,11 +1,12 @@
 # Ansible Role: Local users and groups (Ludus)
 
-An Ansible Role that creates local users on Windows or Linux and manages local groups.
+An Ansible Role that creates local users on Windows or Linux with optional SSH key generation and sudo configuration. The role also manages local groups.
 
 The role performs the following actions:
 - Create Linux users
 - Add Linux users to groups (when creating a user)
-- Configure passwordless sudo configuration
+- Generate SSH keys for Linux users (optional)
+- Configure passwordless sudo for Linux users (optional)
 - Create Windows users
 - Add Windows users to groups
 
@@ -71,6 +72,7 @@ Available variables are listed below. There is no default values. Everything sha
           password: aA8MaQBCtBtPYAFh
           groups: sudo
           sudo_nopasswd: true
+          gen_ssh_key: true
         - login: msmith
           password: 25H60eORSggFfH2Y
 ```
