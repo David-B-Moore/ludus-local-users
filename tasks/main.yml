@@ -5,11 +5,11 @@
   loop: "{{ ludus_local_users }}"
   loop_control: 
     loop_var: user
-  when: "ansible_system == 'Linux'"
+  when: ansible_system == 'Linux'
 
 - name: set up Windows users
   ansible.builtin.include_tasks: windows_user.yml
   loop: "{{ ludus_local_users }}"
   loop_control: 
     loop_var: user
-  when: "ansible_system == 'Win32NT'"
+  when: ansible_system == 'Win32NT'

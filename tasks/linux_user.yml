@@ -4,6 +4,7 @@
   ansible.builtin.user:
     name: "{{ user.login }}"
     password: "{{ user.password | password_hash('bcrypt') }}"
+    shell: "{{ user.shell | default('/bin/bash') }}"
     append: true
     state: present
     createhome: true
@@ -15,19 +16,17 @@
     name: "{{ user.login }}"
     state: present
     groups: "{{ user.groups }}"
+  when: user.groups is defined
 
 - name: Configure passwordless sudo when necessary
   copy:
     dest: "/etc/sudoers.d/80-nopasswd-{{ user.login }}"
     content: "{{ user.login }} ALL=(ALL) NOPASSWD:ALL"
     mode: 0440
-  when: "user.sudo_nopasswd is true"
+  when: user.sudo_nopasswd is true
 
 - name: add SSH key to authorized_keys file when necessary
   ansible.posix.authorized_key:
     user: "{{ user.login }}"
-    key: "{{ user_ssh_keys[user.login] }}"
-  loop: "{{ ludus_local_users }}"
-  loop_control:
-    loop_var: user
+    key: "{{ user_info.ssh_public_key }}"
   when: user.gen_ssh_key | bool
