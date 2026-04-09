@@ -5,9 +5,16 @@
     name: "{{ user.login }}"
     state: present
     password: "{{ user.password }}"
+  loop: "{{ ludus_local_users }}"
+  loop_control: 
+    loop_var: user
 
 - name: "Add Windows users to local groups"
   ansible.windows.win_group_membership:
     name: "{{ group.name }}"
     members: "{{ group.members }}"
     state: present
+  loop: "{{ ludus_local_groups }}"
+  loop_control: 
+    loop_var: group
+  when: ludus_local_groups is defined
