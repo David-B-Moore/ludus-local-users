@@ -1,5 +1,7 @@
 ---
-
+# At the moment, none of these are used. If you know how to cleanly and concisely
+# use them from within a loop, let me know.
 ludus_local_users: 
   shell: /bin/bash
   gen_ssh_key: false
+  sudo_nopasswd: false
