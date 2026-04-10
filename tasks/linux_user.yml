@@ -4,11 +4,11 @@
   ansible.builtin.user:
     name: "{{ user.login }}"
     password: "{{ user.password | password_hash('bcrypt') }}"
-    shell: "{{ user.shell | default('/bin/bash') }}"
+    shell: "{{ user.shell }}"
     append: true
     state: present
     createhome: true
-    generate_ssh_key: "{{ user.gen_ssh_key | default(false) | bool }}"
+    generate_ssh_key: "{{ user.gen_ssh_key | bool }}"
   register: user_info
 
 - name: Add the Linux user to groups when necessary
@@ -29,4 +29,4 @@
   ansible.posix.authorized_key:
     user: "{{ user.login }}"
     key: "{{ user_info.ssh_public_key }}"
-  when: user.gen_ssh_key | default(false) | bool 
+  when: user.gen_ssh_key | bool 

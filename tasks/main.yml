@@ -4,8 +4,10 @@
   ansible.builtin.include_tasks: linux_user.yml
   loop: "{{ ludus_local_users }}"
   loop_control: 
-    loop_var: user
-  when: ansible_system == 'Linux'
+    loop_var: item
+  vars: 
+    user: "{{ linux_defaults | combine(item) }}"
+  when: "ansible_system == 'Linux'"
 
 - name: set up Windows users
   ansible.builtin.include_tasks: windows_user.yml
