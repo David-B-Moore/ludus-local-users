@@ -19,7 +19,9 @@ None.
 
 ## Role Variables
 
-Available variables are listed below. There is no default values. Everything shall be configured in the range configuration.
+Available variables are listed below. This version of the role supports default 
+values for the Linux users. See `defaults/main.yml` and `tasks/linux_user.yml` 
+for more details. 
 
 ### Variables used when creating a user :
 
@@ -34,6 +36,9 @@ Available variables are listed below. There is no default values. Everything sha
 
     # Optional (Linux Only): Whether to set NOPASSWD in sudoers configuration for the created Linux user
     ludus_local_users.sudo_nopasswd: true
+
+    # Optional (Linux Only): whether to give the user a passwordless SSH key
+    ludus_local_users.gen_ssh_key: true
 
 ### Variables used when modifying local groups (Windows Only)
 
@@ -69,7 +74,7 @@ Available variables are listed below. There is no default values. Everything sha
     role_vars:
       ludus_local_users:
         - login: jdoe
-          password: aA8MaQBCtBtPYAFh
+          password: correct-horse-battery-staple
           groups: sudo
           sudo_nopasswd: true
           gen_ssh_key: true
@@ -100,14 +105,18 @@ Available variables are listed below. There is no default values. Everything sha
       ludus_local_users:
         - login: local-adm
           password: 5tB2RgjjI7kdEXHC
+        - login: kevin
+          password: Lost-In-New-York
       ludus_local_groups:
         - name: Administrators
           members:
             - local-adm
+            - kevin
         - name: Remote Desktop Users
           members:
             - MYRANGE\Developers
             - MYRANGE\Tier 1 Admins
+            - kevin
 ```
 
 ## License
