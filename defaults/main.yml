@@ -1,1 +1,6 @@
 ---
+
+linux_defaults: 
+  shell: /bin/bash
+  gen_ssh_key: false
+  sudo_nopasswd: false
